@@ -1,0 +1,44 @@
+{
+  "name": "consid/wordpress-docker-boilerplate",
+  "description": "WordPress Docker Boilerplate",
+  "authors": [
+    {
+      "name": "Andreas Jönsson",
+      "email": "andreas.jonsson@consid.se"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    }
+  ],
+  "extra": {
+    "installer-paths": {
+      "plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.0"
+    }
+  },
+  "require": {
+    "wpackagist-plugin/acf-to-rest-api": "3.3.2",
+    "wpackagist-plugin/rest-api-blocks": "0.4.0",
+    "wpackagist-plugin/wp-rest-api-v2-menus": "0.10",
+    "wpackagist-plugin/relative-url": "0.1.8"
+  }
+}

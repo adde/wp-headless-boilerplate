@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  wp:
+    container_name: wp
+    build: ./wordpress
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: pass
+      WORDPRESS_DB_NAME: wordpress
+      APACHE_RUN_USER: '#-1000'
+      APACHE_RUN_GROUP: '#-1000'
+    user: 1000:1000
+    volumes:
+      # Denna volym fungerar inte eftersom
+      # den skriver över allt som man gör i Dockerfile
+      #- wordpress:/var/www/html
+      - uploads:/var/www/html/wp-content/uploads
+      - ./wordpress/themes/headless:/var/www/html/wp-content/themes/headless
+      - ./wordpress/plugins/advanced-custom-fields-pro:/var/www/html/wp-content/plugins/advanced-custom-fields-pro
+
+  db:
+    container_name: mariadb
+    image: mariadb:10.7
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  uploads:
+  #wordpress:
+  db:
