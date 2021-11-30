@@ -1,3 +1,2 @@
-/client
 /wordpress/plugins/*
 !/wordpress/plugins/.gitkeep
